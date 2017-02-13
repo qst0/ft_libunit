@@ -1,3 +1,5 @@
+#include <libunit.h>
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -10,26 +12,49 @@
 
 void	catch_bus(int data)
 {
-	printf("bus, %d\n", data);
+	printf("\nBUS and pid, %d %d\n\n", data, (int)getpid());
 	exit(0);
 }
 
 void	catch_seg(int data)
 {
-	printf("seg, %d\n", data);
+	printf("\nSEG and pid, %d %d\n\n", data, (int)getpid());
 	exit(0);
+}
+
+void	something(void)
+{
+	printf("Something\n");
+}
+
+void	make_bus(void)
+{
+	char *str = "Hello Bus Error!";
+	str[2] = 'm';
+	printf("no bus?\n");
 }
 
 int main(void)
 {
-	pid_t child_pid;
-	pid_t wpid;
-	int status = 0;
-	int i;
-	int a[3] = {1, 2, 1};
+	//pid_t child_pid;
+	//pid_t wpid;
+	//int status = 0;
+	//int i;
+	//int	*make_a_seg;
+	int pass;
+	int count;
+	t_test_list *tests;
 
 	signal(10, catch_bus);
 	signal(11, catch_seg);
+	pass = 0;
+	count = 0;
+	tests = new_test("Test 0", something);
+	add_test(tests, "Test 1", make_bus);
+	add_test(tests, "Test 2", something);
+	launch_tests(tests, &pass, &count);
+	printf("tests: pass: %d count: %d", pass, count);
+	/*
 	printf("parent_pid = %d\n", getpid());
 	for (i = 0; i < 6 ; i++)
 	{
@@ -37,35 +62,24 @@ int main(void)
 		if ((child_pid = fork()) == 0)
 		{
 			printf("In child process (pid = %d)\n", getpid());
-			if (a[i] < 2)
-			{
-				printf("Should be accept\n");
-				exit(1);
-			}
-			else if (i == 3)
-			{
-				printf("nope? %d\n", a[4000]);
-				exit(1);
-			}
-			else if (i == 4)
-			{
+			if (i == 0)
+				raise(SIGSEGV);
+			else if (i == 1)
 				raise(SIGBUS);
-				printf("no bus?");
-				exit(1);
-			}
 			else
 			{
-				printf("Should be reject\n");
-				exit(0);
+				printf("Loop what am I doing here");
+				exit(3);
 			}
-			/*NOTREACHED*/
 		}
 	}
-
+	*/
+/*
 	while ((wpid = wait(&status)) > 0)
 	{
 		printf("Exit status of %d was %d (%s)\n", (int)wpid, status,
 				(status > 0) ? "accept" : "reject");
 	}
-	return 0;
+	*/
+	return (0);
 }
