@@ -6,7 +6,7 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 08:35:42 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/13 16:41:19 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 15:00:18 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,51 @@ void			load_test(t_test_list *test_list, char *name, void (*test_func)(void))
 		add_test(test_list, name, test_func);
 }
 
-void			launch_tests(t_test_list *test_list)
+int			launch_tests(t_test_list *test_list)
 {
-	t_test_list *cur;
-	pid_t child_pid;
+	t_test_list	*cur;
+	pid_t		child_pid;
+	int			status;
+
+	int pass;
+	int fail;
+	int count;
+	int bus;
+	int seg;
+
+	seg = 0;
+	bus = 0;	
+	pass = 0;
+	fail = 0;
+	count = 0;
+
 
 	cur = test_list;
 	while (cur)
 	{
 		if ((child_pid = fork()) == 0)
-		{
 			cur->test_func();
-			/* THIS SHOULDN"T HAPPEN! */
-			printf("exited by default?");
-			exit(-42);
-		}
+		wait(&status);
+		printf("%s %d\n", cur->name, status);
+		count++;
+		if (status == 0)
+			pass++;
+		if (status == 2560)
+			bus++;
+		if (status == 2816)
+			seg++;
+		if (status == 65280)
+			fail++;
+	
 		cur = cur->next;
 	}
+
+	printf("\n"
+			"bus: %d\n"
+			"seg: %d\n"
+			"fail: %d\n"
+			"pass: %d\n"
+			"total: %d\n"
+			, bus, seg, fail, pass, count);
+	return (pass != count ? -1 : 0);
 }

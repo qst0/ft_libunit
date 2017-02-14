@@ -54,47 +54,5 @@ int main(void)
 	add_test(tests, "Dummy_bus: ", make_bus);
 	add_test(tests, "Dummy_seg: ", make_seg);
 	add_test(tests, "Dummy_fail: ", make_fail);
-	launch_tests(tests);
-	
-	/* Wait for and tally test results */
-
-	pid_t wpid;
-	int status;
-	
-	int pass;
-	int fail;
-	int count;
-	int bus;
-	int seg;
-
-	seg = 0;
-	bus = 0;	
-	pass = 0;
-	fail = 0;
-	count = 0;
-	while ((wpid = wait(&status)) > 0)
-	{
-		printf("Exit status of %d was %d\n", (int)wpid, status);
-		count++;
-		if (status == 0)
-			pass++;
-		if (status == 2560)
-			bus++;
-		if (status == 2816)
-			seg++;
-		if (status == 65280)
-			fail++;
-	}
-
-
-
-	/*Print Results */
-	printf("\n"
-			"bus: %d\n"
-			"seg: %d\n"
-			"fail: %d\n"
-			"pass: %d\n"
-			"total: %d\n"
-			, bus, seg, fail, pass, count);
-	return (pass != count ? -1 : 0);
+	return (launch_tests(tests));
 }
