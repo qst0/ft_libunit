@@ -6,25 +6,24 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-#include <stdio.h>
-
-/* testing with an example to make sure I understand */
-
 void	catch_bus(int data)
 {
-	printf("\nBUS and pid, %d %d\n\n", data, (int)getpid());
-	exit(0);
+	exit(data);
 }
 
 void	catch_seg(int data)
 {
-	printf("\nSEG and pid, %d %d\n\n", data, (int)getpid());
+	exit(data);
+}
+
+void	make_pass(void)
+{
 	exit(0);
 }
 
-void	something(void)
+void	make_fail(void)
 {
-	printf("Something\n");
+	exit(-1);
 }
 
 void	make_bus(void)
@@ -34,52 +33,68 @@ void	make_bus(void)
 	printf("no bus?\n");
 }
 
+void	make_seg(void)
+{
+	int *ptr;
+
+	sleep(1);
+	ptr = 0;
+	*ptr = -42;
+	printf("no seg??\n");
+}
+
 int main(void)
 {
-	//pid_t child_pid;
-	//pid_t wpid;
-	//int status = 0;
-	//int i;
-	//int	*make_a_seg;
-	int pass;
-	int count;
 	t_test_list *tests;
 
 	signal(10, catch_bus);
 	signal(11, catch_seg);
+
+	tests = new_test("Dummy_pass: ", make_pass);
+	add_test(tests, "Dummy_bus: ", make_bus);
+	add_test(tests, "Dummy_seg: ", make_seg);
+	add_test(tests, "Dummy_fail: ", make_fail);
+	launch_tests(tests);
+	
+	/* Wait for and tally test results */
+
+	pid_t wpid;
+	int status;
+	
+	int pass;
+	int fail;
+	int count;
+	int bus;
+	int seg;
+
+	seg = 0;
+	bus = 0;	
 	pass = 0;
+	fail = 0;
 	count = 0;
-	tests = new_test("Test 0", something);
-	add_test(tests, "Test 1", make_bus);
-	add_test(tests, "Test 2", something);
-	launch_tests(tests, &pass, &count);
-	printf("tests: pass: %d count: %d", pass, count);
-	/*
-	printf("parent_pid = %d\n", getpid());
-	for (i = 0; i < 6 ; i++)
-	{
-		printf("i = %d\n", i);
-		if ((child_pid = fork()) == 0)
-		{
-			printf("In child process (pid = %d)\n", getpid());
-			if (i == 0)
-				raise(SIGSEGV);
-			else if (i == 1)
-				raise(SIGBUS);
-			else
-			{
-				printf("Loop what am I doing here");
-				exit(3);
-			}
-		}
-	}
-	*/
-/*
 	while ((wpid = wait(&status)) > 0)
 	{
-		printf("Exit status of %d was %d (%s)\n", (int)wpid, status,
-				(status > 0) ? "accept" : "reject");
+		printf("Exit status of %d was %d\n", (int)wpid, status);
+		count++;
+		if (status == 0)
+			pass++;
+		if (status == 2560)
+			bus++;
+		if (status == 2816)
+			seg++;
+		if (status == 65280)
+			fail++;
 	}
-	*/
-	return (0);
+
+
+
+	/*Print Results */
+	printf("\n"
+			"bus: %d\n"
+			"seg: %d\n"
+			"fail: %d\n"
+			"pass: %d\n"
+			"total: %d\n"
+			, bus, seg, fail, pass, count);
+	return (pass != count ? -1 : 0);
 }
