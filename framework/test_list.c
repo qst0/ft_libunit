@@ -6,7 +6,7 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 08:35:42 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/14 15:41:49 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 19:14:13 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,42 +69,34 @@ void catch_seg(int data)
 
 int			launch_tests(t_test_list *test_list)
 {
-	t_test_list	*cur;
-	pid_t		child_pid;
-	int			status;
-
-	/* TODO replace with struct */
-	int pass;
-	int fail;
-	int count;
-	int bus;
-	int seg;
-
-	seg = 0;
-	bus = 0;
-	pass = 0;
-	fail = 0;
-	count = 0;
-
+	t_test_list		*cur;
+	t_test_result	res;
+	pid_t			child_pid;
+	int				status;
 
 	signal(10, catch_bus);
 	signal(11, catch_seg);
+	res.seg = 0;
+	res.bus = 0;
+	res.pass = 0;
+	res.fail = 0;
+	res.count = 0;
 	cur = test_list;
 	while (cur)
 	{
 		if ((child_pid = fork()) == 0)
 			exit(cur->test_func());
 		wait(&status);
-		printf("%s %d\n", cur->name, status);
-		count++;
+		printf("%s %s\n", cur->name, status ? "FAIL" : "PASS");
+		res.count++;
 		if (status == 0)
-			pass++;
+			res.pass++;
 		if (status == 2560)
-			bus++;
+			res.bus++;
 		if (status == 2816)
-			seg++;
+			res.seg++;
 		if (status == 65280)
-			fail++;
+			res.fail++;
 
 		cur = cur->next;
 	}
@@ -115,6 +107,6 @@ int			launch_tests(t_test_list *test_list)
 			"fail: %d\n"
 			"pass: %d\n"
 			"total: %d\n"
-			, bus, seg, fail, pass, count);
-	return (pass != count ? -1 : 0);
+			, res.bus, res.seg, res.fail, res.pass, res.count);
+	return (res.pass != res.count ? -1 : 0);
 }

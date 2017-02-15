@@ -6,7 +6,7 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 08:25:38 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/14 16:41:13 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 18:43:26 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #ifndef LIB_UNIT_H
 # define LIB_UNIT_H
 
+# include <stdio.h>
+# include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/wait.h>
