@@ -6,7 +6,7 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 16:05:22 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/14 18:52:33 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 20:03:10 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		demo_bus(void)
 {
-	char *str = "Hello Bus Error!";
+	static char *str = "Hello Bus Error";
+
 	str[2] = 'm';
 	if (str[2] == 'm')
 		return (0);

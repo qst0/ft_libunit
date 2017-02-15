@@ -21,8 +21,9 @@ fclean: clean
 
 re: fclean all
 
-test:
+test: all
 	make -C tests/demo
+	./tests/demo/demo_test
 
 $(NAME): $(OBJS)
 	ar crs $@ $(OBJS)

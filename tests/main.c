@@ -6,13 +6,13 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 18:44:39 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/14 19:54:33 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 20:04:40 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unit_tests.h>
 
-int main(void)
+int	main(void)
 {
 	printf("****************************\n");
 	printf("*** 42 - Unit Tests Demo ***\n");

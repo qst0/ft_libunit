@@ -19,10 +19,11 @@ UNIT = $(UNIT_INC) $(UNIT_LINK)
 all: $(NAME)
 
 clean:
-	echo "write clean"
+	@echo "Cleaning..."
 
 fclean:
-	echo "write fclean"
+	@echo "Full clean..."
+	rm -f $(NAME)
 
 re: fclean all
 
