@@ -6,7 +6,7 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 08:35:42 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/14 23:17:23 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 23:37:55 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,6 @@ int					launch_tests(t_test_list *test_list)
 	}
 
 	unit_puts("\n");
-
-	unit_puts("\n");
-	unit_putn(1337);
-	unit_puts("\n");
-
-
 	unit_puts("bus: ");
 	res.bus ? unit_putn(res.bus) : unit_puts("0");
 	unit_puts("\n");

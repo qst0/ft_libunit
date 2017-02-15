@@ -1,18 +1,19 @@
 # myoung and mowen
 
-NAME = atoi_test
+NAME = strcmp_test
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-FILES += 00_ft_atoi_launcher.c
-FILES += 01_ft_atoi_min.c
-FILES += 02_ft_atoi_max.c
-FILES += 03_ft_atoi_hard.c
-FILES += 04_ft_atoi_medium.c
-FILES += 05_ft_atoi_easy.c
-FILES += 06_ft_atoi_veryhard.c
-FILES += 07_ft_atoi_none.c
+FILES += 00_ft_strcmp_launcher.c
+FILES += 01_ft_strcmp_str1.c
+FILES += 02_ft_strcmp_str2.c
+FILES += 03_ft_strcmp_str3.c
+FILES += 04_ft_strcmp_str4.c
+FILES += 05_ft_strcmp_str5.c
+FILES += 06_ft_strcmp_str6.c
+FILES += 07_ft_strcmp_str7.c
+FILES += 08_ft_strcmp_str8.c
 
 FILES += ../main.c
 
