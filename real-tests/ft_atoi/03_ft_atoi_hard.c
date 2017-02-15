@@ -6,14 +6,14 @@
 /*   By: mowen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 21:45:56 by mowen             #+#    #+#             */
-/*   Updated: 2017/02/14 21:51:36 by mowen            ###   ########.fr       */
+/*   Updated: 2017/02/14 22:29:36 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <string.h>
 
-int		03_ft_atoi_hard(void)
+int		test_ft_atoi_hard(void)
 {
 	if (ft_atoi("\n\t\v\f\r -42") == atoi("\n\t\v\f\r -42"))
 		return (0);

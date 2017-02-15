@@ -6,6 +6,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 FILES += framework/test_list.c
+FILES += framework/unit_utils.c
 
 INC = -I ./framework/
 

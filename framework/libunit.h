@@ -6,7 +6,7 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 08:25:38 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/14 18:43:26 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 22:59:13 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ typedef struct	s_test_list
 	struct s_test_list		*next;
 }				t_test_list;
 
-t_test_list	*new_test(char *name, int (*test_func)(void));
-void		add_test(t_test_list *list, char *name, int (*func)(void));
-int			launch_tests(t_test_list *test_list);
+t_test_list		*new_test(char *name, int (*test_func)(void));
+void			add_test(t_test_list *list, char *name, int (*func)(void));
+int				launch_tests(t_test_list *test_list);
 
+int				unit_strlen(char *str);
+void			unit_putn(int n);
+void			unit_puts(char *str);
+char			*unit_strdup(const char *s1);
 #endif

@@ -29,6 +29,7 @@ re: fclean all
 
 test: all
 	./$(NAME)
+	rm -f $(NAME)
 
 $(NAME): $(FILES)
 	$(CC) $(CFLAGS) $(UNIT) $(FILES) -o $(NAME)
