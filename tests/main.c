@@ -6,7 +6,7 @@
 /*   By: myoung <myoung@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 18:44:39 by myoung            #+#    #+#             */
-/*   Updated: 2017/02/14 19:08:26 by myoung           ###   ########.fr       */
+/*   Updated: 2017/02/14 19:54:33 by myoung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main(void)
 	printf("****************************\n");
 	printf("*** 42 - Unit Tests Demo ***\n");
 	printf("****************************\n");
-	printf("\nDemos:\n");
+	printf("\nDemo Routine:\n");
 	demo_launcher();
 	return (0);
 }
